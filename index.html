@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>HanimeFlow · Watch Anime Free</title>
+  <title>HanimeFlow · Stream Anime Free</title>
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -15,48 +15,61 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
   
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   
   <style>
+    :root {
+      --pink-500: #ec4899;
+      --pink-600: #db2777;
+    }
+    
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
       font-family: 'Inter', system-ui, sans-serif;
-      background: linear-gradient(135deg, #fdf2f8 0%, #f8fafc 30%, #fff1f2 70%, #faf5ff 100%);
+      background: #fdf2f8;
+      background-image: 
+        radial-gradient(ellipse at 10% 20%, rgba(236, 72, 153, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 80%, rgba(219, 39, 119, 0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.9) 0%, rgba(253, 242, 248, 0.8) 100%);
       background-attachment: fixed;
       min-height: 100vh;
+      color: #1f2937;
     }
     
     /* Glass Morphism */
     .glass {
       background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
       border: 1px solid rgba(255, 255, 255, 0.9);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
-    }
-    
-    .glass-dark {
-      background: rgba(15, 15, 25, 0.75);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
     }
     
     .glass-card {
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
       border: 1px solid rgba(255, 255, 255, 0.95);
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
       border-radius: 1.5rem;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     .glass-card:hover {
-      transform: translateY(-4px) scale(1.02);
-      box-shadow: 0 20px 40px rgba(236, 72, 153, 0.15);
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 24px 48px rgba(236, 72, 153, 0.15);
+      border-color: rgba(236, 72, 153, 0.3);
+    }
+    
+    .glass-dark {
+      background: rgba(20, 20, 35, 0.8);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 2rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
     }
     
     /* Watermark */
@@ -64,437 +77,428 @@
       position: absolute;
       top: 16px;
       right: 20px;
-      z-index: 20;
+      z-index: 30;
       font-weight: 700;
-      font-size: 0.9rem;
-      letter-spacing: 1px;
-      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      color: white;
       background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(8px);
-      padding: 0.3rem 1.2rem;
+      backdrop-filter: blur(10px);
+      padding: 6px 18px;
       border-radius: 2rem;
       pointer-events: none;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      text-shadow: 0 2px 6px black;
     }
     
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #f9a8d4; border-radius: 10px; }
-    
-    /* Video.js Override */
+    /* Video.js */
     .video-js {
-      border-radius: 1.25rem !important;
+      border-radius: 1.5rem !important;
       overflow: hidden;
     }
     .vjs-control-bar {
-      border-radius: 0 0 1.25rem 1.25rem !important;
-      background: rgba(0,0,0,0.7) !important;
-      backdrop-filter: blur(10px);
+      border-radius: 0 0 1.5rem 1.5rem !important;
+      background: rgba(0,0,0,0.75) !important;
+      backdrop-filter: blur(12px);
+    }
+    .vjs-big-play-button {
+      border-radius: 50% !important;
+      background: rgba(236, 72, 153, 0.9) !important;
+      border: none !important;
     }
     
-    /* Ad Banner Style */
+    /* Ad Banners */
     .ad-banner {
-      background: linear-gradient(135deg, #fce7f3, #fdf2f8);
+      background: linear-gradient(135deg, #ffe4ec, #fce7f3);
       border: 2px dashed #f472b6;
-      animation: pulse 2s infinite;
+      border-radius: 1.5rem;
+      animation: gentlePulse 3s infinite;
     }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.8; }
+    @keyframes gentlePulse {
+      0%, 100% { border-color: #f472b6; }
+      50% { border-color: #f9a8d4; }
     }
     
-    /* Loading Skeleton */
-    .skeleton {
-      background: linear-gradient(90deg, #fce7f3 25%, #fdf2f8 50%, #fce7f3 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
-    }
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #fce7f3; }
+    ::-webkit-scrollbar-thumb { background: #f472b6; border-radius: 10px; }
+    
+    .line-clamp-1 {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
     }
   </style>
 </head>
-<body class="antialiased text-gray-800">
+<body class="antialiased">
 
-  <!-- Main Container -->
-  <div id="app" class="max-w-7xl mx-auto px-4 sm:px-6 py-4 md:py-6">
+  <!-- ============ MAIN APP ============ -->
+  <div id="app" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 md:py-7">
     
-    <!-- HEADER -->
-    <header class="glass rounded-3xl p-4 md:p-5 flex items-center justify-between sticky top-3 z-40 mb-6">
+    <!-- ===== HEADER ===== -->
+    <header class="glass rounded-3xl p-4 md:p-5 flex items-center justify-between sticky top-3 z-50 mb-7">
       <div class="flex items-center gap-3">
-        <!-- Logo from provided link -->
-        <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-pink-300 shadow-lg">
+        <div class="w-11 h-11 md:w-12 md:h-12 rounded-full overflow-hidden border-[3px] border-pink-300 shadow-lg shrink-0">
           <img src="https://i.ibb.co/9HrDg8zz/1ecce0703793e0f192674a0433385e84-webp.webp" 
-               alt="HanimeFlow Logo" 
-               class="w-full h-full object-cover"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <div class="w-full h-full bg-pink-200 hidden items-center justify-center text-2xl">🌸</div>
+               alt="Logo" class="w-full h-full object-cover">
         </div>
-        <h1 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-pink-500 to-rose-600 bg-clip-text text-transparent">
+        <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-pink-500 to-rose-600 bg-clip-text text-transparent">
           HanimeFlow
         </h1>
       </div>
       
-      <div class="flex items-center gap-2 md:gap-4">
-        <button onclick="toggleSearch()" class="p-2.5 rounded-full hover:bg-pink-100 transition" aria-label="Search">
+      <div class="flex items-center gap-2 md:gap-3">
+        <button onclick="toggleSearch()" class="p-2.5 rounded-full hover:bg-pink-100/80 transition" aria-label="Search">
           <i data-lucide="search" class="w-5 h-5 text-gray-700"></i>
         </button>
-        <a href="https://t.me/hanimeflow" target="_blank" class="hidden md:flex items-center gap-1.5 px-4 py-2 bg-pink-500 text-white rounded-full text-sm font-medium hover:bg-pink-600 transition shadow-lg">
+        <a href="https://t.me/hanimeflow" target="_blank" 
+           class="hidden md:inline-flex items-center gap-1.5 px-4 py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-full text-sm font-semibold hover:from-pink-600 hover:to-rose-600 transition shadow-lg">
           <i data-lucide="send" class="w-4 h-4"></i> Telegram
         </a>
       </div>
     </header>
 
-    <!-- Search Bar -->
-    <div id="searchBox" class="glass-card p-4 mb-6 hidden">
+    <!-- ===== SEARCH BAR ===== -->
+    <div id="searchContainer" class="glass-card p-4 md:p-5 mb-7 hidden">
       <div class="relative">
         <i data-lucide="search" class="absolute left-4 top-3.5 w-5 h-5 text-pink-400"></i>
-        <input type="text" id="searchInput" placeholder="Search anime..." 
-               class="w-full pl-12 pr-4 py-3 bg-white/50 rounded-2xl border border-pink-200 focus:outline-none focus:ring-2 focus:ring-pink-400 text-gray-700">
+        <input type="text" id="searchInput" placeholder="Search your favorite anime..." 
+               class="w-full pl-12 pr-5 py-3.5 bg-white/60 rounded-2xl border border-pink-200/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent text-gray-700 placeholder-gray-400 transition">
       </div>
     </div>
 
-    <!-- Dynamic Content Area -->
-    <div id="dynamicView"></div>
+    <!-- ===== DYNAMIC CONTENT ===== -->
+    <div id="dynamicContent"></div>
 
-    <!-- Pagination -->
-    <div id="paginationBox" class="flex justify-center items-center gap-4 mt-8 mb-6"></div>
+    <!-- ===== PAGINATION ===== -->
+    <div id="paginationBox" class="flex justify-center items-center gap-3 md:gap-5 mt-10 mb-6"></div>
 
-    <!-- Footer with Telegram -->
-    <footer class="text-center py-6 mt-8">
+    <!-- ===== FOOTER ===== -->
+    <footer class="text-center mt-10 pb-6">
       <a href="https://t.me/hanimeflow" target="_blank" 
-         class="inline-flex items-center gap-2 px-6 py-3 glass-card text-pink-600 font-semibold hover:bg-pink-50 transition">
-        <i data-lucide="send" class="w-5 h-5"></i> Join Our Telegram Channel
+         class="inline-flex items-center gap-2.5 px-7 py-3.5 glass-card text-pink-600 font-semibold hover:bg-pink-50/80 transition group">
+        <i data-lucide="send" class="w-5 h-5 group-hover:rotate-12 transition-transform"></i>
+        <span>Join Our Telegram for Latest Updates</span>
       </a>
-      <p class="text-gray-400 text-sm mt-3">© 2025 HanimeFlow · All rights reserved</p>
+      <p class="text-gray-400 text-xs md:text-sm mt-5">© 2025 HanimeFlow · Made with ❤️</p>
     </footer>
   </div>
 
-  <!-- Hidden Player Template -->
+  <!-- ============ PLAYER TEMPLATE ============ -->
   <template id="playerTemplate">
-    <div class="glass-dark rounded-3xl p-3 md:p-5 relative">
-      <!-- Watermark -->
-      <div class="watermark">HanimeFlow</div>
+    <div class="glass-dark p-3 md:p-5 relative">
+      <div class="watermark">⛩ HanimeFlow</div>
       
-      <!-- Back Button -->
-      <button onclick="closePlayer()" class="absolute top-4 left-4 z-20 bg-white/20 backdrop-blur-md p-2.5 rounded-full hover:bg-white/40 transition">
+      <button onclick="closePlayer()" class="absolute top-4 left-4 z-30 bg-white/20 backdrop-blur-md p-2.5 rounded-full hover:bg-white/40 transition">
         <i data-lucide="arrow-left" class="w-5 h-5 text-white"></i>
       </button>
       
-      <!-- Video Player -->
-      <video id="mainVideo" class="video-js vjs-default-skin vjs-big-play-centered w-full" controls preload="auto" data-setup='{"fluid": true}'>
-        <source id="videoSource" type="application/x-mpegURL" src="">
-      </video>
+      <div class="mt-6 md:mt-0">
+        <video id="mainVideo" class="video-js vjs-default-skin vjs-big-play-centered w-full" controls preload="auto" data-setup='{"fluid": true}'>
+          <source id="videoSource" type="application/x-mpegURL" src="">
+        </video>
+      </div>
       
-      <!-- Episode Buttons -->
-      <div id="episodeList" class="flex flex-wrap gap-2 mt-4 px-2"></div>
+      <div class="mt-5 px-2">
+        <p class="text-white/70 text-xs uppercase tracking-wider mb-2 ml-1">📺 Episodes</p>
+        <div id="episodeButtons" class="flex flex-wrap gap-2"></div>
+      </div>
       
-      <!-- Pre-roll Ad Banner -->
-      <div class="ad-banner rounded-2xl p-4 my-4 text-center">
-        <p class="text-pink-700 font-semibold text-sm mb-2">🎬 Unlock Premium Content</p>
-        <a href="YOUR_SMARTLINK_HERE" target="_blank" 
-           class="inline-block px-6 py-2 bg-pink-500 text-white rounded-full font-bold hover:bg-pink-600 transition shadow-lg">
-          Watch in HD
+      <!-- Pre-Roll Ad -->
+      <div class="ad-banner rounded-2xl p-4 my-5 text-center">
+        <p class="text-pink-800 font-bold text-sm md:text-base">🔥 Unlock Premium Anime</p>
+        <p class="text-pink-600 text-xs mb-2">Fast streaming · No buffering</p>
+        <a href="YOUR_SMARTLINK" target="_blank" 
+           class="inline-block px-6 py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-full text-sm font-bold hover:scale-105 transition-transform shadow-lg">
+          Watch in HD Quality
         </a>
       </div>
       
       <!-- Action Buttons -->
-      <div class="flex flex-wrap gap-3 items-center justify-between px-2 mt-3">
-        <button id="downloadBtn" class="flex items-center gap-2 bg-pink-500/80 backdrop-blur px-5 py-2.5 rounded-full text-white font-medium hover:bg-pink-600 transition">
+      <div class="flex flex-wrap items-center justify-between gap-3 px-2 mt-4">
+        <button id="downloadBtn" class="flex items-center gap-2 bg-pink-500/80 backdrop-blur-sm px-5 py-2.5 rounded-full text-white font-semibold hover:bg-pink-600 transition shadow-lg">
           <i data-lucide="download" class="w-4 h-4"></i> Download
         </button>
-        <a href="YOUR_SMARTLINK_HERE" target="_blank" 
-           class="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full text-white hover:bg-white/20 transition text-sm">
-          <i data-lucide="external-link" class="w-4 h-4"></i> HD Stream
-        </a>
-        <a href="https://t.me/hanimeflow" target="_blank" 
-           class="flex items-center gap-2 text-pink-200 hover:text-pink-100 transition text-sm underline">
-          <i data-lucide="message-circle" class="w-4 h-4"></i> Telegram
-        </a>
+        <div class="flex gap-2">
+          <a href="https://t.me/hanimeflow" target="_blank" 
+             class="flex items-center gap-1.5 text-pink-200 hover:text-pink-100 transition text-sm font-medium underline">
+            <i data-lucide="message-circle" class="w-4 h-4"></i> Telegram
+          </a>
+          <a href="YOUR_SMARTLINK" target="_blank" 
+             class="flex items-center gap-1.5 text-white/70 hover:text-white transition text-sm font-medium">
+            <i data-lucide="external-link" class="w-4 h-4"></i> Mirror
+          </a>
+        </div>
       </div>
       
-      <!-- Anime Info Section -->
-      <div id="animeInfo" class="mt-5 p-4 bg-white/5 backdrop-blur rounded-2xl text-white/90"></div>
+      <!-- Anime Info -->
+      <div id="animeInfoCard" class="mt-5 p-4 md:p-5 bg-white/5 backdrop-blur rounded-2xl text-white/90 border border-white/10"></div>
       
-      <!-- In-Info Telegram Button -->
+      <!-- Telegram Button in Info -->
       <div class="mt-4 text-center">
         <a href="https://t.me/hanimeflow" target="_blank" 
-           class="inline-flex items-center gap-2 px-6 py-2.5 bg-pink-500/60 backdrop-blur rounded-full text-white hover:bg-pink-500/80 transition font-medium">
-          <i data-lucide="send" class="w-4 h-4"></i> Join Telegram for Updates
+           class="inline-flex items-center gap-2 px-6 py-3 bg-pink-500/50 backdrop-blur rounded-full text-white font-semibold hover:bg-pink-500/70 transition border border-pink-400/30">
+          <i data-lucide="send" class="w-4 h-4"></i> Join Telegram Channel
         </a>
       </div>
       
-      <!-- Another Ad Banner -->
+      <!-- Bottom Ad -->
       <div class="ad-banner rounded-2xl p-3 mt-5 text-center">
-        <a href="YOUR_SMARTLINK_HERE" target="_blank" 
-           class="text-pink-300 hover:text-pink-200 text-sm font-medium">
-          🔥 Click Here for More Anime 🔥
+        <a href="YOUR_SMARTLINK" target="_blank" 
+           class="text-pink-300 hover:text-pink-200 transition text-sm font-semibold">
+          🎬 More Anime → Click Here 🎬
         </a>
       </div>
     </div>
   </template>
 
+  <!-- ============ SCRIPTS ============ -->
   <script>
-    // ==================== GLOBAL STATE ====================
-    let allAnime = [];
-    let currentPage = 1;
+    // ========== CONFIG ==========
+    const SMARTLINK = 'YOUR_SMARTLINK_HERE'; // ← APNA SMARTLINK YAHAN DALO
     const PER_PAGE = 12;
+    
+    // ========== ALL ANIME IDs (Hardcoded list) ==========
+    const ANIME_IDS = [
+      'aot', 'demonslayer', 'jjk', 'onepiece', 'chainsawman', 'spyxfamily',
+      'tokyorevengers', 'vinlandsaga', 'mha', 'blackclover', 'frieren', 'sololeveling',
+      'naruto', 'bleach', 'deathnote', 'onepunchman', 'dragonball', 'hunterxhunter'
+    ];
+    
+    // ========== STATE ==========
+    let allAnimeData = []; // Full data of all loaded anime
+    let currentPage = 1;
     let totalPages = 1;
     let playerInstance = null;
-    let currentAnimeData = null;
-    let adShown = sessionStorage.getItem('hanime_popup') === 'true';
+    let currentAnimeId = null;
+    let popupShown = sessionStorage.getItem('h_pop') === 'true';
+    let preRollShown = sessionStorage.getItem('h_pre') === 'true';
+    let dataLoaded = false;
     
-    // SMARTLINK - Replace with your actual smartlink
-    const SMARTLINK = 'YOUR_SMARTLINK_HERE';
-    
-    // ==================== INIT ====================
+    // ========== INIT ==========
     async function init() {
-      await loadAnimeList();
+      document.getElementById('dynamicContent').innerHTML = `
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-5">
+          ${Array(12).fill(0).map(() => `
+            <div class="glass-card overflow-hidden">
+              <div class="aspect-[3/4] skeleton"></div>
+            </div>
+          `).join('')}
+        </div>`;
+      
+      await loadAllAnimeData();
+      dataLoaded = true;
+      totalPages = Math.ceil(allAnimeData.length / PER_PAGE);
+      renderHomePage(1);
       lucide.createIcons();
-      setupSearchListener();
     }
     
-    async function loadAnimeList() {
-      try {
-        const res = await fetch('/data/anime-list.json');
-        if (!res.ok) throw new Error('Failed');
-        allAnime = await res.json();
-        totalPages = Math.ceil(allAnime.length / PER_PAGE);
-        renderHomePage(1);
-      } catch (err) {
-        document.getElementById('dynamicView').innerHTML = `
-          <div class="text-center py-20">
-            <p class="text-pink-600 text-xl font-semibold">🌸 Loading...</p>
-            <p class="text-gray-500 mt-2">Please make sure /data/anime-list.json exists</p>
-          </div>`;
-      }
+    async function loadAllAnimeData() {
+      const promises = ANIME_IDS.map(async (id) => {
+        try {
+          const res = await fetch(`/data/anime/${id}.json`);
+          if (!res.ok) throw new Error('Not found');
+          return await res.json();
+        } catch (err) {
+          // Return basic skeleton if file missing
+          return {
+            id: id,
+            title: id.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase()),
+            image: '',
+            score: '?',
+            genres: ['Unknown'],
+            episodes: '?',
+            episodes_list: [],
+            downloads: [],
+            telegram: { text: 'Join Telegram', url: 'https://t.me/hanimeflow' }
+          };
+        }
+      });
+      
+      allAnimeData = await Promise.all(promises);
     }
     
-    // ==================== HOME PAGE ====================
+    // ========== SEARCH ==========
+    function toggleSearch() {
+      document.getElementById('searchContainer').classList.toggle('hidden');
+      document.getElementById('searchInput')?.focus();
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      init();
+      document.getElementById('searchInput')?.addEventListener('input', function(e) {
+        const term = e.target.value.toLowerCase().trim();
+        document.querySelectorAll('#dynamicContent .grid > div[data-anime]').forEach(card => {
+          const title = card.getAttribute('data-title') || '';
+          card.style.display = title.includes(term) ? '' : 'none';
+        });
+      });
+    });
+    
+    // ========== HOME PAGE ==========
     function renderHomePage(page) {
+      if (!dataLoaded) return;
       currentPage = page;
       const start = (page - 1) * PER_PAGE;
-      const items = allAnime.slice(start, start + PER_PAGE);
+      const items = allAnimeData.slice(start, start + PER_PAGE);
       
       const grid = document.createElement('div');
       grid.className = 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-5';
       
-      items.forEach(anime => {
+      items.forEach((anime, index) => {
         const card = document.createElement('div');
-        card.className = 'glass-card overflow-hidden cursor-pointer';
+        card.className = 'glass-card overflow-hidden cursor-pointer group';
+        card.setAttribute('data-anime', 'true');
+        card.setAttribute('data-title', anime.title.toLowerCase());
         card.innerHTML = `
-          <div class="aspect-[3/4] relative bg-pink-50">
+          <div class="aspect-[3/4] relative bg-pink-100">
             <img src="${anime.image}" alt="${anime.title}" 
-                 class="w-full h-full object-cover" loading="lazy"
-                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22400%22%3E%3Crect fill=%22%23fce7f3%22 width=%22300%22 height=%22400%22/%3E%3Ctext x=%2230%22 y=%22210%22 fill=%22%23db2777%22 font-size=%2216%22%3EHanimeFlow%3C/text%3E%3C/svg%3E'">
-            <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 via-black/20 to-transparent">
-              <h3 class="text-white font-semibold text-xs md:text-sm truncate drop-shadow-lg">${anime.title}</h3>
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                 loading="lazy"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="w-full h-full bg-pink-200/50 hidden items-center justify-center text-3xl">🌸</div>
+            <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/80 via-black/30 to-transparent">
+              <h3 class="text-white font-semibold text-xs md:text-sm line-clamp-1 drop-shadow-md">${anime.title}</h3>
+              <p class="text-white/60 text-[10px]">⭐ ${anime.score}</p>
             </div>
           </div>
         `;
-        card.addEventListener('click', (e) => {
-          if (!adShown) {
-            adShown = true;
-            sessionStorage.setItem('hanime_popup', 'true');
+        
+        card.addEventListener('click', () => {
+          if (!popupShown) {
+            popupShown = true;
+            sessionStorage.setItem('h_pop', 'true');
             window.open(SMARTLINK, '_blank');
           }
-          loadPlayer(anime.id);
+          loadPlayerView(anime.id);
         });
+        
         grid.appendChild(card);
+        
+        // Ad after every 6th card
+        if ((index + 1) % 6 === 0 && index < items.length - 1) {
+          const adDiv = document.createElement('div');
+          adDiv.className = 'ad-banner rounded-2xl p-4 flex flex-col justify-center items-center text-center min-h-[180px]';
+          adDiv.innerHTML = `
+            <p class="text-pink-700 font-bold text-sm">🌟 Premium Anime</p>
+            <p class="text-pink-500 text-xs mb-2">HD Quality · No Ads</p>
+            <a href="${SMARTLINK}" target="_blank" 
+               class="mt-1 px-4 py-2 bg-pink-500 text-white rounded-full text-xs font-bold hover:bg-pink-600 transition shadow">
+              Watch Now
+            </a>`;
+          grid.appendChild(adDiv);
+        }
       });
       
-      // Inject Ad Banner between cards every 6 items
-      const adInjectIndex = 6;
-      if (items.length > adInjectIndex) {
-        const adBanner = document.createElement('div');
-        adBanner.className = 'ad-banner rounded-2xl p-4 flex flex-col items-center justify-center text-center col-span-2 sm:col-span-1';
-        adBanner.innerHTML = `
-          <p class="text-pink-700 font-bold text-sm">🌟 Premium Anime 🌟</p>
-          <a href="${SMARTLINK}" target="_blank" class="mt-2 px-4 py-2 bg-pink-500 text-white rounded-full text-xs font-bold hover:bg-pink-600 transition">
-            Watch Now
-          </a>
-        `;
-        grid.insertBefore(adBanner, grid.children[adInjectIndex]);
-      }
-      
-      document.getElementById('dynamicView').innerHTML = '';
-      document.getElementById('dynamicView').appendChild(grid);
+      document.getElementById('dynamicContent').innerHTML = '';
+      document.getElementById('dynamicContent').appendChild(grid);
       renderPagination();
       lucide.createIcons();
     }
     
+    // ========== PAGINATION ==========
     function renderPagination() {
       const box = document.getElementById('paginationBox');
       box.innerHTML = '';
       if (totalPages <= 1) return;
       
-      const prev = document.createElement('button');
-      prev.className = 'px-5 py-2.5 glass-card font-semibold disabled:opacity-40';
-      prev.textContent = '← Prev';
-      prev.disabled = currentPage === 1;
-      prev.onclick = () => renderHomePage(currentPage - 1);
+      const prevBtn = document.createElement('button');
+      prevBtn.className = 'px-5 py-2.5 glass-card font-semibold text-gray-700 disabled:opacity-30 disabled:cursor-not-allowed';
+      prevBtn.textContent = '← Prev';
+      prevBtn.disabled = currentPage === 1;
+      prevBtn.onclick = () => { if (currentPage > 1) renderHomePage(currentPage - 1); };
       
       const info = document.createElement('span');
-      info.className = 'px-4 py-2 text-gray-700 font-medium';
-      info.textContent = `${currentPage} / ${totalPages}`;
+      info.className = 'px-4 py-2 font-medium text-gray-600 text-sm';
+      info.textContent = `Page ${currentPage} / ${totalPages}`;
       
-      const next = document.createElement('button');
-      next.className = 'px-5 py-2.5 glass-card font-semibold disabled:opacity-40';
-      next.textContent = 'Next →';
-      next.disabled = currentPage === totalPages;
-      next.onclick = () => renderHomePage(currentPage + 1);
+      const nextBtn = document.createElement('button');
+      nextBtn.className = 'px-5 py-2.5 glass-card font-semibold text-gray-700 disabled:opacity-30 disabled:cursor-not-allowed';
+      nextBtn.textContent = 'Next →';
+      nextBtn.disabled = currentPage >= totalPages;
+      nextBtn.onclick = () => { if (currentPage < totalPages) renderHomePage(currentPage + 1); };
       
-      box.appendChild(prev);
+      box.appendChild(prevBtn);
       box.appendChild(info);
-      box.appendChild(next);
+      box.appendChild(nextBtn);
     }
     
-    // ==================== PLAYER ====================
-    async function loadPlayer(animeId) {
-      try {
-        const res = await fetch(`/data/anime/${animeId}.json`);
-        if (!res.ok) throw new Error('Not found');
-        currentAnimeData = await res.json();
-      } catch (err) {
-        alert('Anime data not found!');
+    // ========== PLAYER ==========
+    function loadPlayerView(animeId) {
+      const data = allAnimeData.find(a => a.id === animeId);
+      if (!data) {
+        alert('Anime data not loaded!');
         return;
       }
       
-      const data = currentAnimeData;
+      currentAnimeId = animeId;
       document.getElementById('paginationBox').style.display = 'none';
       
-      const view = document.getElementById('dynamicView');
-      view.innerHTML = '';
+      const container = document.getElementById('dynamicContent');
+      container.innerHTML = '';
+      
       const template = document.getElementById('playerTemplate');
       const clone = template.content.cloneNode(true);
       
-      // Update smartlinks in template
-      clone.querySelectorAll('[href="YOUR_SMARTLINK_HERE"]').forEach(el => {
-        el.href = SMARTLINK;
-      });
+      clone.querySelectorAll('[href="YOUR_SMARTLINK"]').forEach(el => el.href = SMARTLINK);
       
-      view.appendChild(clone);
+      container.appendChild(clone);
       
-      // Init Video.js
       if (playerInstance) playerInstance.dispose();
       
       const videoEl = document.getElementById('mainVideo');
       const sourceEl = document.getElementById('videoSource');
       
-      if (data.episodes_list && data.episodes_list.length > 0) {
+      if (data.episodes_list?.length > 0) {
         sourceEl.src = data.episodes_list[0].stream.hls;
       }
       
       playerInstance = videojs(videoEl, {
         fluid: true,
-        playbackRates: [0.5, 1, 1.5, 2],
-        preload: 'auto'
+        playbackRates: [0.75, 1, 1.25, 1.5, 2],
+        preload: 'auto',
+        autoplay: false
       });
       
-      // Pre-roll ad redirect
       playerInstance.one('play', () => {
-        if (!sessionStorage.getItem('preroll_shown')) {
-          sessionStorage.setItem('preroll_shown', 'true');
-          setTimeout(() => {
-            window.open(SMARTLINK, '_blank');
-          }, 500);
+        if (!preRollShown) {
+          preRollShown = true;
+          sessionStorage.setItem('h_pre', 'true');
+          setTimeout(() => window.open(SMARTLINK, '_blank'), 800);
         }
       });
       
-      // Resume playback
-      const savedTime = localStorage.getItem(`hanime_${animeId}`);
+      const savedTime = localStorage.getItem(`h_time_${animeId}`);
       if (savedTime) {
         playerInstance.one('loadedmetadata', () => {
-          playerInstance.currentTime(parseFloat(savedTime));
+          playerInstance.currentTime(parseFloat(savedTime) || 0);
         });
       }
       playerInstance.on('timeupdate', () => {
-        localStorage.setItem(`hanime_${animeId}`, playerInstance.currentTime());
+        if (playerInstance && !playerInstance.paused()) {
+          localStorage.setItem(`h_time_${animeId}`, playerInstance.currentTime());
+        }
       });
       
-      // Render episodes
-      renderEpisodes(data);
+      renderEpisodeButtons(data);
+      renderAnimeInfoCard(data);
       
-      // Render anime info
-      renderAnimeInfo(data);
-      
-      // Download button
       document.getElementById('downloadBtn').addEventListener('click', () => {
         window.open(SMARTLINK, '_blank');
-        if (data.downloads && data.downloads[0]) {
-          setTimeout(() => window.open(data.downloads[0].url, '_blank'), 300);
+        if (data.downloads?.[0]?.url) {
+          setTimeout(() => window.open(data.downloads[0].url, '_blank'), 400);
         }
       });
       
       lucide.createIcons();
     }
     
-    function renderEpisodes(data) {
-      const container = document.getElementById('episodeList');
+    function renderEpisodeButtons(data) {
+      const container = document.getElementById('episodeButtons');
       if (!container || !data.episodes_list) return;
       container.innerHTML = '';
       
       data.episodes_list.forEach(ep => {
         const btn = document.createElement('button');
-        btn.className = 'px-3 py-1.5 bg-white/10 backdrop-blur rounded-full text-white text-xs md:text-sm hover:bg-white/30 transition font-medium';
-        btn.textContent = `Ep ${ep.ep}`;
-        btn.addEventListener('click', () => {
-          if (playerInstance && ep.stream.hls) {
-            playerInstance.src({ src: ep.stream.hls, type: 'application/x-mpegURL' });
-            playerInstance.play();
-          }
-        });
-        container.appendChild(btn);
-      });
-    }
-    
-    function renderAnimeInfo(data) {
-      const section = document.getElementById('animeInfo');
-      if (!section) return;
-      
-      section.innerHTML = `
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
-          <div class="col-span-2">
-            <h2 class="text-lg font-bold text-white">${data.title}</h2>
-          </div>
-          <div class="flex items-center gap-1">⭐ ${data.score || 'N/A'}</div>
-          <div class="flex items-center gap-1">🎬 ${data.episodes || 0} Episodes</div>
-          <div class="col-span-2 md:col-span-3 flex flex-wrap gap-2">
-            ${(data.genres || []).map(g => `<span class="px-2 py-0.5 bg-pink-500/30 rounded-full text-xs">${g}</span>`).join('')}
-          </div>
-        </div>
-      `;
-    }
-    
-    function closePlayer() {
-      if (playerInstance) {
-        playerInstance.dispose();
-        playerInstance = null;
-      }
-      document.getElementById('paginationBox').style.display = 'flex';
-      renderHomePage(currentPage);
-    }
-    
-    // ==================== SEARCH ====================
-    function toggleSearch() {
-      document.getElementById('searchBox').classList.toggle('hidden');
-    }
-    
-    function setupSearchListener() {
-      document.getElementById('searchInput').addEventListener('input', (e) => {
-        const term = e.target.value.toLowerCase().trim();
-        const cards = document.querySelectorAll('#dynamicView .grid > .glass-card');
-        cards.forEach(card => {
-          const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
-          card.style.display = title.includes(term) ? '' : 'none';
-        });
-      });
-    }
-    
-    // ==================== START ====================
-    window.addEventListener('DOMContentLoaded', init);
-  </script>
-</body>
-  </html>
+        btn.className = 'px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-full text-white text-xs md:text-sm hover:bg-w
