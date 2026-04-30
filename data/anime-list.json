@@ -1,9 +1,7 @@
-<!-- Card -->
-<a href="https://ibb.co/xKxKpnNB">
-  <img src="https://i.ibb.co/DP0PxBZv/image-10.png" alt="Otaku no Boku OVA" border="0">
-</a>
-
-<!-- Banner -->
-<a href="https://ibb.co/xKxKpnNB">
-  <img src="https://i.ibb.co/DP0PxBZv/image-10.png" alt="Otaku no Boku OVA Banner" border="0">
-</a>
+[
+  {
+    "id": "otaku-gal",
+    "title": "Otaku no Boku ga Ichigun Gal to Tsukiaeru Made no Hanashi",
+    "image": "https://i.ibb.co/DP0PxBZv/image-10.png"
+  }
+]
