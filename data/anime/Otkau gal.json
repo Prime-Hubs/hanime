@@ -1,0 +1,35 @@
+{
+  "id": "otaku-gal",
+  "title": "Otaku no Boku ga Ichigun Gal to Tsukiaeru Made no Hanashi",
+  "image": "https://i.ibb.co/DP0PxBZv/image-10.png",
+  "banner": "https://i.ibb.co/DP0PxBZv/image-10.png",
+  "score": 7.2,
+  "genres": ["Romance", "Comedy", "OVA"],
+  "episodes": 2,
+  "episodes_list": [
+    {
+      "ep": 1,
+      "title": "Episode 1",
+      "stream": {
+        "hls": "https://hstorage.xyz/files/O/otaku-no-boku-ga-ichigun-gal-to-tsukiaeru-made-no-hanashi/otaku-no-boku-ga-ichigun-gal-to-tsukiaeru-made-no-hanashi_720p.mp4"
+      }
+    },
+    {
+      "ep": 2,
+      "title": "Episode 2",
+      "stream": {
+        "hls": "https://hstorage.xyz/files/O/otaku-no-boku-ga-ichigun-gal-to-tsukiaeru-made-no-hanashi/otaku-no-boku-ga-ichigun-gal-to-tsukiaeru-made-no-hanashi_1080p.mp4"
+      }
+    }
+  ],
+  "downloads": [
+    {
+      "label": "1080p",
+      "url": "https://hstorage.xyz/files/O/otaku-no-boku-ga-ichigun-gal-to-tsukiaeru-made-no-hanashi/otaku-no-boku-ga-ichigun-gal-to-tsukiaeru-made-no-hanashi_1080p.mp4"
+    }
+  ],
+  "telegram": {
+    "text": "Join Telegram",
+    "url": "https://t.me/hanimeflow"
+  }
+}
